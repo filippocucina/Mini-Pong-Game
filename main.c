@@ -31,13 +31,15 @@ int initialize_window(void){
 			//inicializar o -1 para inicializar el primero que admite 
 			//los indicadores solicitados 
 			0, //0, o uno o más SDL_RendererFlags O juntos
+			);
 
-			if (!renderer) {
-				fprintf(stderr, "Error creating SDL Renderer: %s\n", 
-						SDL_GetError);
-				return FALSE;
-			}
-	);	
+	//Si no se Dispara el renderizado, muestra error
+	if (!renderer) {	
+		fprintf(stderr, "Error creating SDL Renderer: %s\n", 
+		SDL_GetError);
+		return FALSE;
+	}
+
 	 	
 	return TRUE;
 }
