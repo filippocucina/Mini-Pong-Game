@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include "./constant.h"
 
+
 int game_is_running = FALSE;
 SDL_Window* window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -10,6 +11,11 @@ SDL_Renderer *renderer = NULL;
 /*
   funcion para crear la Ventana
 */
+
+
+SDL_Window* window = NULL;
+SDL_Renderer *renderer = NULL;
+
 
 int initialize_window(void){
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -49,6 +55,7 @@ int initialize_window(void){
 	 	
 	return TRUE;
 }
+
 
 /*
 	Funciones del Game Loop
@@ -126,6 +133,6 @@ int main(int argc, char *argv[])
 	}
 	
 	destroy_window();
-	
+
 	return 0;
 }
