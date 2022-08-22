@@ -1,0 +1,4 @@
+﻿  main.c
+C:\Users\OMEN 674\Documents\GameSDL\Pong Game\main.c(106,21): warning C4305: '+=': truncamiento de 'double' a 'float'
+C:\Users\OMEN 674\Documents\GameSDL\Pong Game\main.c(107,21): warning C4305: '+=': truncamiento de 'double' a 'float'
+  Pong Game.vcxproj -> C:\Users\OMEN 674\Documents\GameSDL\Pong Game\x64\Debug\Pong Game.exe

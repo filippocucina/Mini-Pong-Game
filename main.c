@@ -1,75 +1,80 @@
 #include <stdio.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "./constant.h"
-
 
 int game_is_running = FALSE;
 SDL_Window* window = NULL;
 SDL_Renderer *renderer = NULL;
+
+struct ball {
+	float x, y, w, h;
+} ball_game;	//Pelota del Juego
 
 
 /*
   funcion para crear la Ventana
 */
 
+int initialize_window(void) {
 
-SDL_Window* window = NULL;
-SDL_Renderer *renderer = NULL;
-
-
-int initialize_window(void){
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)	{ 
 		fprintf(stderr, "Error Initializing SDL: %s\n", SDL_GetError());
 		return FALSE;
 	}
+
 	
 	window = SDL_CreateWindow(
-			NULL, //No tiene Titulo la ventana del juego
-			SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio X
-			SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio Y
-			WINDOW_WIDTH, //Altura en X
-			WINDOW_HEIGHT, //Altura en Y
-			SDL_WINDOW_BORDERLESS //Ventana sin decoracion
+		"Ventana del Juego", //No tiene Titulo la ventana del juego
+		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio X
+		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio Y
+		WINDOW_WIDTH, //Altura en X
+		WINDOW_HEIGHT, //Altura en Y
+		SDL_WINDOW_OPENGL //Ventana sin decoracion
 	);
-	
+
+
 	if (!window) {
 		fprintf(stderr, "Error creating SDL: %s\n", SDL_GetError());
 		return FALSE;
 	}
 	
+
 	renderer = SDL_CreateRenderer(
 			window, //La ventana donde el renderizado se muestra, 
 			-1, //el índice del controlador de representación que se va a 
 			//inicializar o -1 para inicializar el primero que admite 
 			//los indicadores solicitados 
 			0 //0, o uno o más SDL_RendererFlags O juntos
-			);
+	);
 
-	//Si no se Dispara el renderizado, muestra error
-	if (!renderer) {	
+
+	if (!renderer) {	//Si no se Dispara el renderizado, muestra mensaje de error	
 		fprintf(stderr, "Error creating SDL Renderer: %s\n", 
 		SDL_GetError());
 		return FALSE;
 	}
+	
 
-	 	
 	return TRUE;
 }
 
 
-/*
-	Funciones del Game Loop
-*/
-
-void setup() {
-	//TODO:
-
+void setup(void) {
+	ball_game.x = 395;
+	ball_game.y = 245;
+	ball_game.w = 15;
+	ball_game.h = 15;
 }
 
-void process_input() {
+
+/*
+	Funciones del Game Loop ↓
+*/
+
+void process_input(void) {
 	SDL_Event event;
 	SDL_PollEvent(&event);
-
+	
 	switch(event.type) {
 		case SDL_QUIT:
 			game_is_running = FALSE;
@@ -78,7 +83,7 @@ void process_input() {
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				game_is_running = FALSE;
-			}	
+			}
 		break;
 
 
@@ -86,53 +91,60 @@ void process_input() {
 
 }
 
-void update() {
+
+void update(void) {
+	int FPS = 30;
+	int last_frame_time = 0;
+	int frame_target_time = (1000 / FPS);
 
 
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + frame_target_time));
+		
+	last_frame_time = SDL_GetTicks();
+
+
+	ball_game.x += 0.02;
+	ball_game.y += 0.02;
 }
 
-void render() {
 
+void render(void) {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_RenderClear(renderer);
+	
+	SDL_Rect ball_rect = { (int)ball_game.x, (int)ball_game.y, (int)ball_game.w, (int)ball_game.h }; //Draw Rectangle
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &ball_rect);
+	
 
+	SDL_RenderPresent(renderer);
 }
 
-void destroy_window() {
+
+void destroy_window(void) {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
 
-//Funcion Principal
 
-int main(int argc, char *argv[])
-{
-	
+int main(int argc, char *argv[]) //Funcion Principal
+{	
 	game_is_running = initialize_window();
 
-	/*
-	  	Set Up function is called once in the beginning 
-	  	and it is not attached in the Game Loop
-	  	We use it to set the game_objects position, Enviroment, Colors and more!
-	
-	*/
 
 	setup();
-
-
-	/*
-                En cada Game Loop, es comprimido de tres principales secciones:
-                1- Se inicializa la Entrada del jugador
-                2- El juego se actualiza
-                3- Se renderiza en la pantalla
- 	*/
+	
 
 	while (game_is_running) {
 		process_input();
 		update();
-		render();
+		render(); 
 	}
 	
 	destroy_window();
 
+
 	return 0;
 }
+
