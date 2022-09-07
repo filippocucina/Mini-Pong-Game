@@ -102,9 +102,15 @@ void update(void) {
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + FRAME_TARGET_TIME));	//Use this macro to compare SDL ticks values. Returns "true" if A has passed B. 
 	last_frame_time = SDL_GetTicks();
 
+<<<<<<< HEAD
 	ball_game.x += 3;
 	ball_game.y += 3;
 }
+=======
+	ball_game.x += 2;
+	ball_game.y += 2;
+}	
+>>>>>>> main
 
 
 void render(void) {
