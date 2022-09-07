@@ -80,6 +80,7 @@ void process_input(void) {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 	
+
 	switch(event.type) {
 		case SDL_QUIT:
 			game_is_running = FALSE;
@@ -102,27 +103,24 @@ void update(void) {
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + FRAME_TARGET_TIME));	//Use this macro to compare SDL ticks values. Returns "true" if A has passed B. 
 	last_frame_time = SDL_GetTicks();
 
-<<<<<<< HEAD
+
 	ball_game.x += 3;
 	ball_game.y += 3;
 }
-=======
-	ball_game.x += 2;
-	ball_game.y += 2;
-}	
->>>>>>> main
 
 
 void render(void) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	
+
 	SDL_Rect ball = { 
 		(int)ball_game.x, 
 		(int)ball_game.y, 
 		(int)ball_game.width, 
 		(int)ball_game.height 
 	};
+
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &ball);
