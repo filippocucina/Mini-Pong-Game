@@ -71,6 +71,7 @@ void setup(void) {
 	Funciones del Game Loop ↓
 */
 
+
 void process_input(void) {
 	SDL_Event event;
 	SDL_PollEvent(&event);
@@ -128,7 +129,7 @@ void destroy_window(void) {
 }
 
 
-int main(int argc, char *argv[]) //Funcion Principal
+int main(int argc, char **argv) //Funcion Principal
 {	
 	game_is_running = initialize_window();
 
