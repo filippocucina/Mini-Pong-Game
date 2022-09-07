@@ -4,6 +4,7 @@
 
 
 int game_is_running = FALSE;
+int last_frame_time = 0;
 SDL_Window* window = NULL;
 SDL_Renderer *renderer = NULL;
 
@@ -63,8 +64,8 @@ int initialize_window(void) {
 
 
 void setup(void) {
-	ball_game.x = 395;
-	ball_game.y = 245;
+	ball_game.x = 399;
+	ball_game.y = 180;
 	ball_game.width = 15;
 	ball_game.height = 15;
 }
@@ -97,18 +98,12 @@ void process_input(void) {
 
 
 void update(void) {
-	int FPS = 30;
-	int last_frame_time = 0;
-	int frame_target_time = (1000 / FPS);
 
-
-	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + frame_target_time));
-		
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + FRAME_TARGET_TIME));	//Use this macro to compare SDL ticks values. Returns "true" if A has passed B. 
 	last_frame_time = SDL_GetTicks();
 
-
-	ball_game.x += 0.02;
-	ball_game.y += 0.02;
+	ball_game.x += 3;
+	ball_game.y += 3;
 }
 
 
@@ -116,7 +111,13 @@ void render(void) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	
-	SDL_Rect ball = { (int)ball_game.x, (int)ball_game.y, (int)ball_game.width, (int)ball_game.height }; 
+	SDL_Rect ball = { 
+		(int)ball_game.x, 
+		(int)ball_game.y, 
+		(int)ball_game.width, 
+		(int)ball_game.height 
+	};
+
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &ball);
 	
