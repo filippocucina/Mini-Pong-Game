@@ -2,18 +2,21 @@
 #include <SDL.h>
 #include "./constant.h"
 
+
 int game_is_running = FALSE;
 SDL_Window* window = NULL;
 SDL_Renderer *renderer = NULL;
 
+
 struct ball {
-	float x, y, w, h;
+	float x, y, width, height;
 } ball_game;	//Pelota del Juego
 
 
 /*
   funcion para crear la Ventana
 */
+
 
 int initialize_window(void) {
 
@@ -62,8 +65,8 @@ int initialize_window(void) {
 void setup(void) {
 	ball_game.x = 395;
 	ball_game.y = 245;
-	ball_game.w = 15;
-	ball_game.h = 15;
+	ball_game.width = 15;
+	ball_game.height = 15;
 }
 
 
@@ -110,15 +113,15 @@ void update(void) {
 
 
 void render(void) {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	
-	SDL_Rect ball_rect = { (int)ball_game.x, (int)ball_game.y, (int)ball_game.w, (int)ball_game.h }; //Draw Rectangle
+	SDL_Rect ball = { (int)ball_game.x, (int)ball_game.y, (int)ball_game.width, (int)ball_game.height }; 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &ball_rect);
+	SDL_RenderFillRect(renderer, &ball);
 	
 
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(renderer);  //Swap the Double Buffer (Front Buffer - Back Buffer)
 }
 
 
