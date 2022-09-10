@@ -80,6 +80,7 @@ void process_input(void) {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 	
+
 	switch(event.type) {
 		case SDL_QUIT:
 			game_is_running = FALSE;
@@ -100,23 +101,28 @@ void process_input(void) {
 void update(void) {
 
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + FRAME_TARGET_TIME));	//Use this macro to compare SDL ticks values. Returns "true" if A has passed B. 
-	last_frame_time = SDL_GetTicks();
+	
+	float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f; //Get a Delta Time factor converted to be used to update my objects
 
-	ball_game.x += 2;
-	ball_game.y += 2;
-}	
+	last_frame_time = SDL_GetTicks(); 
+
+	ball_game.x += 80 * delta_time;
+	ball_game.y += 60 * delta_time;
+}
 
 
 void render(void) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	
+
 	SDL_Rect ball = { 
 		(int)ball_game.x, 
 		(int)ball_game.y, 
 		(int)ball_game.width, 
 		(int)ball_game.height 
 	};
+
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &ball);
