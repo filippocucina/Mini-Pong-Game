@@ -1,0 +1,40 @@
+Vamos a explicar Delta Time y Fixed Time:
+
+Imagina que tenemos dos computadoras diferentes, una computadora tiene una CPU con una velocidad de 1Ghz y la otra tiene un CPU con una velocidad de 4Ghz. Los ciclos por segundo son casos hipoteticos.
+
+
+      Velocidad  Ciclos por Segundo    Tiempo Delta  
+CPU1 |   1Ghz  |   	10	    |  	   0.1   S   |
+CPU2 |   4Ghz  | 	40	    |      0.025 S   |
+
+
+De donde saque este dato? Muy bien lo que hice fue dividir 1 entre la cantidad de ciclos por segundo
+de cada computadora, eso me regresa el Tiempo Delta de una computadora.
+
+Entre mas rapida una computadora, mas pequeño va a ser el Tiempo Delta.
+
+Ahora si por ejemplo en nuestro juego tenemos un jugador que se mueve a 5 Unidades por Ciclo, entonces
+tenemos en este caso en el frame 0 o justo cuando arranca nuestro juego el personaje va a estar
+en la posicion 0. 
+
+En la primera computadora si se mueve a 5 Unidades por Ciclo despues de un segundo
+va a estar en la unidad 50, por que 5 * 10 = 50, pero que pasa si hacemos exactamente lo mismo en la 
+segunda computadora?
+
+Bueno en vez de estar en la misma posicion que en la primera computadora va a estar en la posicion 200, porque?
+por que 5 * 40 son 200 y este es un comportamiento que no queremos en nuestros juegos, queremos que
+nuestros personajes sin importar en que computadora estén corriendo se muevan a la misma velocidad y
+aqui es donde el Tiempo Delta o Delta Time soluciona el problema porque?, por que si por ejemplo
+en la primera computadora multiplicamos esos 50 ese valor 50 que es el valor resultante de la velocidad
+del jugador por el Tiempo Delta, que en el caso de la primera computadora es 0.1 nos va a dar como
+resultado un 5, es decir, si multiplicamos por Tiempo Delta en lugar de avanzar 50 unidades este
+jugador va a avanzar 5 unidades solamente. 
+
+Entonces, si aplicamo este mismo calculo en la segunda computadora, tenemos que 200 * 0.025 que es 
+el Delta Time de la computadora o del CPU2 nos va a dar un resultado de 5, es decir, normalizamos
+la velocidad en cualquiera de las computadoras que estemos corriendo nuestro juego, el resultado
+de la velocidad o cuantas unidades va a avanzar nuestro jugador despues de un segundo va a ser el 
+mismo y por eso la importancia de utilizar el Tiempo Delta dentro de nuestros calculos de movimiento.
+
+Cuando usamos Delta Time como funcion, no pensamos cuantos pixeles por fotograma.. pero en su lugar 
+pensamos cuantos pixeles por segundo  
