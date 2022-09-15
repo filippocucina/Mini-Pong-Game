@@ -37,4 +37,10 @@ de la velocidad o cuantas unidades va a avanzar nuestro jugador despues de un se
 mismo y por eso la importancia de utilizar el Tiempo Delta dentro de nuestros calculos de movimiento.
 
 Cuando usamos Delta Time como funcion, no pensamos cuantos pixeles por fotograma.. pero en su lugar 
-pensamos cuantos pixeles por segundo  
+pensamos cuantos pixeles por segundo 
+
+1000.0f  --- El " f " nos asegura que sea un float point value, es decir, un valor flotante
+
+100.0 is a floating point value .
+100.0F (100.0f can work as well) makes damn sure it’s a floating point value.
+100 is an integer value.

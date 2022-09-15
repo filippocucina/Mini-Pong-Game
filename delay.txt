@@ -1,0 +1,44 @@
+The whole problem is the way that we are doing this, it OK for us as an academic
+exercise, so its easy to understand that we are locking at execution, but in the
+real world, you probably shouldnt use a While Loops!
+
+While Loops are processor instructions, meaning that once we compile our program,
+the little wire While Loop will become part of our executable and the operating
+systems whenever its executing that task, it doesnt know if it should deligate the
+attention of the processor toward her tasks or what it should do.
+
+So it basically going to consume 100 percent of the CPU, of that CPU core for our 
+task. So our process, the little executable that we are running on the operating
+system, is probably going to burn a lot of the processor, and that is not what we 
+want, I dont want to have my process wasting resources One Hundred percent of the 
+CPU, you getting 100 percent of the attention of the processor to just kind of be 
+locked there doing nothing, there is nothing being done inside our While Loop.
+
+So that is usually not how we are going to operate and program things for real 
+world applications. Your Process needs to share the CPU and share memory with
+order X, If you have Microsoft Word will and if you have your Web Browser open,
+these things need to kind of get attention from the CPU.
+
+The suggestion is instead of using a while loop and I know a while loop is very
+very easy to reason about and think about locking the instructions there, the 
+recommendation is call a Delay Function. How smart is the SDL function compared
+to a While Loop, the thing is a proper Delay Function it relies on the operating
+systems capability of using the execution to other processes, so we are not just 
+locking things frictions inside a While Loop. 
+
+The people that implemented SDL Delay they are using the operating system instructions 
+to go and say operating system go and give attention to other processes, I'm done with 
+this processes for these amount of milliseconds and you can go and you can give attetion to something else and when reach those milliseconds, then we get back the attention, 
+then we can perfom the update, render and attack functions.
+
+So a proper Delay Function is Operating System specific, right. The Operating System
+the way it schedules the processes, the way that it manages the tasks, thats how a 
+Delay System should really work, it should rely on the Operating System ability of
+going in, given the attention of the CPU to order processes of our Operating System. 
+
+---  SUMMARY  ---
+
+Instead of using a While Loop I would encourage us to something like an SDL Delay
+just passing how many milliseconds we want to sleep, but we know right now that this
+Sleep means stop execution so fthis process and give you the process attention of 
+the CPU to order process of the Operating System  	  

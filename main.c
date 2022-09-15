@@ -4,7 +4,7 @@
 
 
 int game_is_running = FALSE;
-int last_frame_time = 0;
+int last_frame_time = 0;	//This is going to keep track of the milliseconds of the last frame that I called
 SDL_Window* window = NULL;
 SDL_Renderer *renderer = NULL;
 
@@ -94,7 +94,7 @@ void process_input(void) {
 
 
 	}	
-
+	
 }
 
 
@@ -102,10 +102,11 @@ void update(void) {
 
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + FRAME_TARGET_TIME));	//Use this macro to compare SDL ticks values. Returns "true" if A has passed B. 
 	
-	float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f; //Get a Delta Time factor converted to be used to update my objects
+	float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f; //Get a Delta Time factor converted in seconds to be used to update my objects
+		
+	last_frame_time = SDL_GetTicks();
 
-	last_frame_time = SDL_GetTicks(); 
-
+	//Everything has to be updated in SECONDS!
 	ball_game.x += 80 * delta_time;
 	ball_game.y += 60 * delta_time;
 }
@@ -123,7 +124,7 @@ void render(void) {
 		(int)ball_game.height 
 	};
 
-
+	
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &ball);
 	

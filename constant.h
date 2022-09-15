@@ -5,4 +5,4 @@
 #define WINDOW_HEIGHT 600
 
 #define FPS 60
-#define FRAME_TARGET_TIME (1000/FPS)
+#define FRAME_TARGET_TIME (1000/FPS) //Remember that we work with milliseconds
