@@ -100,12 +100,16 @@ void process_input(void) {
 
 void update(void) {
 
-	while (!SDL_TICKS_PASSED(SDL_GetTicks(), last_frame_time + FRAME_TARGET_TIME));	//Use this macro to compare SDL ticks values. Returns "true" if A has passed B. 
+	int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time);
 	
+	if (time_to_wait > 0 && time_to_wait <= FRAME_TARGET_TIME) {
+		SDL_Delay(time_to_wait);
+	}
+
 	float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f; //Get a Delta Time factor converted in seconds to be used to update my objects
 		
 	last_frame_time = SDL_GetTicks();
-
+	
 	//Everything has to be updated in SECONDS!
 	ball_game.x += 80 * delta_time;
 	ball_game.y += 60 * delta_time;
