@@ -11,16 +11,20 @@ SDL_Renderer *renderer = NULL;
 
 struct ball {
 	float x, y, width, height;
-} ball_game, player;	//Ball and Player of the Game
+} ball_game;	//Ball of the Game
+
+
+struct player {
+	float x, y, width, height;
+} paddle_player;	//Player of the Game
 
 
 /*
-  funcion para crear la Ventana
+  funcion para inicializar SDL
 */
 
 
 int initialize_window(void) {
-
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)	{ 
 		fprintf(stderr, "Error Initializing SDL: %s\n", SDL_GetError());
 		return FALSE;
@@ -68,6 +72,12 @@ void setup(void) {
 	ball_game.y = 180;
 	ball_game.width = 15;
 	ball_game.height = 15;
+
+
+	paddle_player.x = 399;
+	paddle_player.y = 540;
+	paddle_player.width = 90;
+	paddle_player.height = 13;
 }
 
 
@@ -94,7 +104,6 @@ void process_input(void) {
 
 
 	}	
-	
 }
 
 
@@ -119,19 +128,31 @@ void update(void) {
 void render(void) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
-	
 
-	SDL_Rect ball = { 
-		(int)ball_game.x, 
-		(int)ball_game.y, 
-		(int)ball_game.width, 
-		(int)ball_game.height 
+
+	SDL_Rect ball = {
+		(int)ball_game.x,
+		(int)ball_game.y,
+		(int)ball_game.width,
+		(int)ball_game.height
 	};
 
-	
+
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &ball);
+
+
+	SDL_Rect paddle = {
+		(int)paddle_player.x,
+		(int)paddle_player.y,
+		(int)paddle_player.width,
+		(int)paddle_player.height
+	};
 	
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &paddle);
+
 
 	SDL_RenderPresent(renderer);  //Swap the Double Buffer (Front Buffer - Back Buffer)
 }
