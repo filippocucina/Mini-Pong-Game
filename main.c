@@ -32,7 +32,7 @@ int initialize_window(void) {
 
 	
 	window = SDL_CreateWindow(
-		"Ventana del Juego", //Titulo de la Ventana del Juego
+		"Pong Game", //Titulo de la Ventana del Juego
 		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio X
 		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio Y
 		WINDOW_WIDTH, //Altura en X
@@ -109,7 +109,7 @@ void process_input(void) {
 
 void update(void) {
 	int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time); //Reaching the Time to Wait in Milliseconds
-	
+
 
 	if (time_to_wait > 0 && time_to_wait <= FRAME_TARGET_TIME) {
 		SDL_Delay(time_to_wait);
@@ -117,7 +117,7 @@ void update(void) {
 
 
 	float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f; //Get a Delta Time factor converted in seconds to be used to update my objects
-	
+
 
 	last_frame_time = SDL_GetTicks(); //The SDL Window Ticks
 
