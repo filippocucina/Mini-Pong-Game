@@ -10,7 +10,13 @@ SDL_Renderer *renderer = NULL;
 
 
 /*
-	We could also use a single struct called Game Objects to simplify, but IT JUST WORKS!!!
+	We could also use a single struct called Game Objects to simplify:
+	
+	struct GameObjects {
+		... Code 
+	}
+	
+	but IT JUST WORKS!!!
 */
 
 
