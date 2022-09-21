@@ -9,18 +9,23 @@ SDL_Window* window = NULL;
 SDL_Renderer *renderer = NULL;
 
 
+/*
+	We could also use a single struct called Game Objects to simplify, but IT JUST WORKS!!!
+*/
+
+
 struct ball {
-	float x, y, width, height;
+	float x, y, width, height, velocityY, velocityX;
 } ball_game;	//Ball of the Game
 
 
 struct player {
-	float x, y, width, height;
+	float x, y, width, height, velocity_paddleX;
 } paddle_player;	//Player of the Game
 
 
 /*
-  funcion para inicializar SDL
+	SDL Initialization
 */
 
 
@@ -37,7 +42,7 @@ int initialize_window(void) {
 		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio Y
 		WINDOW_WIDTH, //Altura en X
 		WINDOW_HEIGHT, //Altura en Y
-		SDL_WINDOW_OPENGL //Ventana sin decoracion
+		SDL_WINDOW_BORDERLESS //Ventana sin bordes
 	);
 
 
@@ -68,16 +73,18 @@ int initialize_window(void) {
 
 
 void setup(void) {
-	ball_game.x = 399;
-	ball_game.y = 180;
+	ball_game.x = (WINDOW_WIDTH / 2);
+	ball_game.y = 100;
 	ball_game.width = 15;
 	ball_game.height = 15;
+	ball_game.velocityX = 0;
+	ball_game.velocityY = 0;
 
-
-	paddle_player.x = 370;
-	paddle_player.y = 540;
-	paddle_player.width = 90;
-	paddle_player.height = 13;
+	paddle_player.width = 100;
+	paddle_player.height = 20;
+	paddle_player.x = (WINDOW_WIDTH / 2) - (paddle_player.width / 2);
+	paddle_player.y = WINDOW_HEIGHT - 50;
+	paddle_player.velocity_paddleX = 0;
 }
 
 
@@ -87,22 +94,26 @@ void setup(void) {
 
 
 void process_input(void) {
-	SDL_Event event;
-	SDL_PollEvent(&event);
-	
+	SDL_Event user_event;
+	SDL_PollEvent(&user_event);
 
-	switch(event.type) {
-		case SDL_QUIT:
+
+	switch (user_event.type) {
+	case SDL_QUIT:
+		game_is_running = FALSE;
+		break;
+
+	case SDL_KEYDOWN:
+		if (user_event.key.keysym.sym == SDLK_ESCAPE) {
 			game_is_running = FALSE;
+		}
+
+		/* 
+		if (user_event.key.keysym.sym == SDLK_RIGHT) {
+			paddle_player.x = paddle_player.velocity_paddleX * 
+		}
+		*/
 		break;
-
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_ESCAPE) {
-				game_is_running = FALSE;
-			}
-		break;
-
-
 	}	
 }
 
