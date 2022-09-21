@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>	//Newer Versions of the C Programming Language added this Pre-Processor File. So you can use false or true, instead of the constant library
 #include <SDL.h>
 #include "constant.h"
 
