@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <SDL.h>
-#include "./constant.h"
+#include "constant.h"
 
 
 int game_is_running = FALSE;

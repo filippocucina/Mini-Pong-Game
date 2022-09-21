@@ -1,3 +1,7 @@
+#ifndef CONSTANT
+#define CONSTANT
+
+
 #define FALSE 0
 #define TRUE 1
 
@@ -6,3 +10,4 @@
 
 #define FPS 60
 #define FRAME_TARGET_TIME (1000/FPS) //Remember that we work with milliseconds
+#endif
