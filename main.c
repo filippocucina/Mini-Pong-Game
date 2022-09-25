@@ -110,16 +110,33 @@ void process_input(void) {
 		game_is_running = FALSE;
 		break;
 
+
 	case SDL_KEYDOWN:
 		if (user_event.key.keysym.sym == SDLK_ESCAPE) {
 			game_is_running = FALSE;
 		}
 
-		/* 
+
 		if (user_event.key.keysym.sym == SDLK_RIGHT) {
-			paddle_player.x = paddle_player.velocity_paddleX * 
+			paddle_player.velocity_paddleX = 320;
 		}
-		*/
+
+
+		if (user_event.key.keysym.sym == SDLK_LEFT) {
+			paddle_player.velocity_paddleX = -320;
+		}
+		break;
+
+
+	case SDL_KEYUP:
+		if (user_event.key.keysym.sym == SDLK_RIGHT) {
+			paddle_player.velocity_paddleX = 0;
+		}
+
+
+		if (user_event.key.keysym.sym == SDLK_LEFT) {
+			paddle_player.velocity_paddleX = -0;
+		}
 		break;
 	}	
 }
@@ -128,7 +145,7 @@ void process_input(void) {
 void update(void) {
 	int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time); //Reaching the Time to Wait in Milliseconds
 
-
+	
 	if (time_to_wait > 0 && time_to_wait <= FRAME_TARGET_TIME) {
 		SDL_Delay(time_to_wait);
 	}
@@ -143,6 +160,11 @@ void update(void) {
 	//Everything has to be updated in SECONDS!
 	ball_game.x += 80 * delta_time;
 	ball_game.y += 60 * delta_time;
+
+
+	paddle_player.x += paddle_player.velocity_paddleX * delta_time;
+	
+
 }
 
 
