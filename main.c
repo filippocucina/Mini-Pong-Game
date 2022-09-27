@@ -160,9 +160,10 @@ void update(void) {
 	//Everything has to be updated in SECONDS!
 	ball_game.x += 80 * delta_time;
 	ball_game.y += 60 * delta_time;
-
-
+	
+	
 	paddle_player.x += paddle_player.velocity_paddleX * delta_time;
+	
 	
 
 }
@@ -197,7 +198,7 @@ void render(void) {
 	SDL_RenderFillRect(renderer, &paddle);
 
 
-	SDL_RenderPresent(renderer);  //Swap the Double Buffer (Front Buffer - Back Buffer)
+	SDL_RenderPresent(renderer);  //Swap the Double Buffer (Front Buffer - Back Buffer) or Simple Update The Screen
 }
 
 
