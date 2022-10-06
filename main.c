@@ -164,7 +164,7 @@ void update(void) {
 	
 	paddle_player.x += paddle_player.velocity_paddleX * delta_time;
 	
-	
+	//TODO: Collision Detection
 
 }
 
