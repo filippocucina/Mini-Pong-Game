@@ -84,8 +84,8 @@ void setup(void) {
 	ball_game.y = 100;
 	ball_game.width = 15;
 	ball_game.height = 15;
-	ball_game.velocityX = 70;
-	ball_game.velocityY = 70;
+	ball_game.velocityX = 100;
+	ball_game.velocityY = 100;
 
 	paddle_player.width = 100;
 	paddle_player.height = 20;
@@ -160,34 +160,42 @@ void update(void) {
 	//Everything has to be updated in SECONDS!
 	ball_game.x += ball_game.velocityX * delta_time;
 	ball_game.y += ball_game.velocityY * delta_time;
+	paddle_player.x += paddle_player.velocity_paddleX * delta_time;
 
 
-	paddle_player.x += paddle_player.velocity_paddleX * delta_time;	//Update Paddle positions based on its velocity
-
-
-	//Collision Detection
+	//Ball Collision with the width
 	if (ball_game.x <= 0 || ball_game.x + ball_game.width >= WINDOW_WIDTH) {
 		ball_game.velocityX = -ball_game.velocityX;
 	}
 
 
+	//Ball collision with the height
 	if (ball_game.y <= 0) {
 		ball_game.velocityY = -ball_game.velocityY;
 	}
-	
 
-	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x >= paddle_player.x * paddle_player.width) {
+
+	//Ball and Paddle collision
+	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x <= paddle_player.x * paddle_player.width) {
 		ball_game.velocityY = -ball_game.velocityY;
 	}
 
 
+	//Paddle to the left screen
 	if (paddle_player.x <= 0 || paddle_player.x + paddle_player.width == WINDOW_WIDTH) {
 		paddle_player.x = 0;
 	}
 
 
-	if (paddle_player.x >= 800 || paddle_player.x + paddle_player.width == WINDOW_WIDTH) {
-		paddle_player.x = 0;
+	//Paddle to the right screen	
+	if (paddle_player.x >= WINDOW_WIDTH - paddle_player.width) {
+		paddle_player.x = WINDOW_WIDTH - paddle_player.width;
+	}
+
+
+	if (ball_game.y + ball_game.width > WINDOW_HEIGHT) {
+		ball_game.x = WINDOW_WIDTH / 2;
+		ball_game.y = 0;
 	}
 }
 
