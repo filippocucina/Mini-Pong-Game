@@ -47,7 +47,7 @@ int initialize_window(void) {
 		"Pong Game", //Titulo de la Ventana del Juego
 		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio X
 		SDL_WINDOWPOS_CENTERED, //Centramos la ventana en el medio Y
-		WINDOW_WIDTH, //Altura en X
+		WINDOW_WIDTH, //Anchura en X
 		WINDOW_HEIGHT, //Altura en Y
 		SDL_WINDOW_BORDERLESS //Ventana sin bordes
 	);
@@ -84,8 +84,8 @@ void setup(void) {
 	ball_game.y = 100;
 	ball_game.width = 15;
 	ball_game.height = 15;
-	ball_game.velocityX = 0;
-	ball_game.velocityY = 0;
+	ball_game.velocityX = 70;
+	ball_game.velocityY = 70;
 
 	paddle_player.width = 100;
 	paddle_player.height = 20;
@@ -145,7 +145,7 @@ void process_input(void) {
 void update(void) {
 	int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time); //Reaching the Time to Wait in Milliseconds
 
-	
+
 	if (time_to_wait > 0 && time_to_wait <= FRAME_TARGET_TIME) {
 		SDL_Delay(time_to_wait);
 	}
@@ -158,14 +158,37 @@ void update(void) {
 
 
 	//Everything has to be updated in SECONDS!
-	ball_game.x += 80 * delta_time;
-	ball_game.y += 60 * delta_time;
-	
-	
-	paddle_player.x += paddle_player.velocity_paddleX * delta_time;
-	
-	//TODO: Collision Detection
+	ball_game.x += ball_game.velocityX * delta_time;
+	ball_game.y += ball_game.velocityY * delta_time;
 
+
+	paddle_player.x += paddle_player.velocity_paddleX * delta_time;	//Update Paddle positions based on its velocity
+
+
+	//Collision Detection
+	if (ball_game.x <= 0 || ball_game.x + ball_game.width >= WINDOW_WIDTH) {
+		ball_game.velocityX = -ball_game.velocityX;
+	}
+
+
+	if (ball_game.y <= 0) {
+		ball_game.velocityY = -ball_game.velocityY;
+	}
+	
+
+	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x >= paddle_player.x * paddle_player.width) {
+		ball_game.velocityY = -ball_game.velocityY;
+	}
+
+
+	if (paddle_player.x <= 0 || paddle_player.x + paddle_player.width == WINDOW_WIDTH) {
+		paddle_player.x = 0;
+	}
+
+
+	if (paddle_player.x >= 800 || paddle_player.x + paddle_player.width == WINDOW_WIDTH) {
+		paddle_player.x = 0;
+	}
 }
 
 
