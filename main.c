@@ -176,7 +176,7 @@ void update(void) {
 
 
 	//Ball and Paddle collision
-	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x <= paddle_player.x * paddle_player.width) {
+	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x <= paddle_player.x + paddle_player.width) {
 		ball_game.velocityY = -ball_game.velocityY;
 	}
 
