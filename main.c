@@ -84,8 +84,8 @@ void setup(void) {
 	ball_game.y = 100;
 	ball_game.width = 15;
 	ball_game.height = 15;
-	ball_game.velocityX = 180;
-	ball_game.velocityY = 180;
+	ball_game.velocityX = 250;
+	ball_game.velocityY = 250;
 
 	paddle_player.width = 100;
 	paddle_player.height = 20;
@@ -145,11 +145,11 @@ void process_input(void) {
 void update(void) {
 	int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time); //Reaching the Time to Wait in Milliseconds
 
-
+	/* 
 	if (time_to_wait > 0 && time_to_wait <= FRAME_TARGET_TIME) {
 		SDL_Delay(time_to_wait);
 	}
-
+	*/
 
 	float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f; //Get a Delta Time factor converted in seconds to be used to update my objects
 
@@ -169,7 +169,7 @@ void update(void) {
 	}
 
 
-	//Ball collision with the window's height
+	//Ball.y collision with the window's height
 	if (ball_game.y <= 0) {
 		ball_game.y = 0;
 		ball_game.velocityY = -ball_game.velocityY;
