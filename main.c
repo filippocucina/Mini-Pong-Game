@@ -84,8 +84,8 @@ void setup(void) {
 	ball_game.y = 100;
 	ball_game.width = 15;
 	ball_game.height = 15;
-	ball_game.velocityX = 100;
-	ball_game.velocityY = 100;
+	ball_game.velocityX = 180;
+	ball_game.velocityY = 180;
 
 	paddle_player.width = 100;
 	paddle_player.height = 20;
@@ -163,36 +163,39 @@ void update(void) {
 	paddle_player.x += paddle_player.velocity_paddleX * delta_time;
 
 
-	//Ball Collision with the width
+	//Ball.x Collision with the window's width
 	if (ball_game.x <= 0 || ball_game.x + ball_game.width >= WINDOW_WIDTH) {
 		ball_game.velocityX = -ball_game.velocityX;
 	}
 
 
-	//Ball collision with the height
+	//Ball collision with the window's height
 	if (ball_game.y <= 0) {
+		ball_game.y = 0;
 		ball_game.velocityY = -ball_game.velocityY;
 	}
 
 
 	//Ball and Paddle collision
-	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x <= paddle_player.x + paddle_player.width) {
+	if (ball_game.y + ball_game.height >= paddle_player.y && ball_game.x + ball_game.width >= paddle_player.x && ball_game.x <= paddle_player.x + paddle_player.width) { 
+		ball_game.y = paddle_player.y - ball_game.height;
 		ball_game.velocityY = -ball_game.velocityY;
 	}
 
 
-	//Paddle to the left screen
+	//Prevent Paddle from moving outside the boundaries of the window 
 	if (paddle_player.x <= 0 || paddle_player.x + paddle_player.width == WINDOW_WIDTH) {
 		paddle_player.x = 0;
 	}
 
 
-	//Paddle to the right screen	
+	//Prevent Paddle from moving outside the boundaries of the window	
 	if (paddle_player.x >= WINDOW_WIDTH - paddle_player.width) {
 		paddle_player.x = WINDOW_WIDTH - paddle_player.width;
 	}
 
 
+	//Replace the ball in the height of the window
 	if (ball_game.y + ball_game.width > WINDOW_HEIGHT) {
 		ball_game.x = WINDOW_WIDTH / 2;
 		ball_game.y = 0;
