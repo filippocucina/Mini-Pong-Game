@@ -1,4 +1,4 @@
 # Pong Game
 First Video Game written in C using SDL (Game Library)
 
-![ezgif com-resize](https://github.com/filippocucina/Pong-Game/assets/45553550/f31f3013-7d07-4874-b78c-8618345d3436)
+![ezgif com-gif-maker](https://github.com/filippocucina/Pong-Game/assets/45553550/08a1eb7e-769a-4834-971b-90a64bdca207)
